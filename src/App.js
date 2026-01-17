@@ -20,23 +20,23 @@ import { connectESP, formatMacAddr, sleep, loadFiles, supported } from './lib/es
 import { loadSettings, defaultSettings } from './lib/settings'
 
 const App = () => {
-  const [connected, setConnected] = React.useState(false) // Connection status
+  const [connected, setConnected] = React.useState(false) // 连接状态
   const [connecting, setConnecting] = React.useState(false)
-  const [output, setOutput] = React.useState({ time: new Date(), value: 'Click Connect to start\n' }) // Serial output
-  const [espStub, setEspStub] = React.useState(undefined) // ESP flasher stuff
-  const [uploads, setUploads] = React.useState([]) // Uploaded Files
-  const [settingsOpen, setSettingsOpen] = React.useState(false) // Settings Window
-  const [settings, setSettings] = React.useState({...defaultSettings}) // Settings
-  const [confirmErase, setConfirmErase] = React.useState(false) // Confirm Erase Window
-  const [confirmProgram, setConfirmProgram] = React.useState(false) // Confirm Flash Window
-  const [flashing, setFlashing] = React.useState(false) // Enable/Disable buttons
-  const [chipName, setChipName] = React.useState('') // ESP8266 or ESP32
+  const [output, setOutput] = React.useState({ time: new Date(), value: '点击“连接设备”开始\n' }) // 串口输出
+  const [espStub, setEspStub] = React.useState(undefined) // ESP 烧录器相关
+  const [uploads, setUploads] = React.useState([]) // 已上传的文件
+  const [settingsOpen, setSettingsOpen] = React.useState(false) // 设置窗口
+  const [settings, setSettings] = React.useState({ ...defaultSettings }) // 设置
+  const [confirmErase, setConfirmErase] = React.useState(false) // 确认擦除窗口
+  const [confirmProgram, setConfirmProgram] = React.useState(false) // 确认烧录窗口
+  const [flashing, setFlashing] = React.useState(false) // 按钮启用/禁用状态
+  const [chipName, setChipName] = React.useState('') // ESP8266 或 ESP32
 
   useEffect(() => {
     setSettings(loadSettings())
   }, [])
 
-  // Add new message to output
+  // 添加新消息到输出区域
   const addOutput = (msg) => {
     setOutput({
       time: new Date(),
@@ -44,7 +44,7 @@ const App = () => {
     })
   }
 
-  // Connect to ESP & init flasher stuff
+  // 连接 ESP 并初始化烧录器
   const clickConnect = async () => {
     if (espStub) {
       await espStub.disconnect()
@@ -61,13 +61,13 @@ const App = () => {
     })
 
     try {
-      toast.info('Connecting...', { 
-        position: 'top-center', 
-        autoClose: false, 
-        toastId: 'connecting' 
+      toast.info('正在连接…', {
+        position: 'top-center',
+        autoClose: false,
+        toastId: 'connecting'
       })
       toast.update('connecting', {
-        render: 'Connecting...',
+        render: '正在连接…',
         type: toast.TYPE.INFO,
         autoClose: false
       })
@@ -76,24 +76,22 @@ const App = () => {
 
       await esploader.initialize()
 
-      addOutput(`Connected to ${esploader.chipName}`)
-      addOutput(`MAC Address: ${formatMacAddr(esploader.macAddr())}`)
+      addOutput(`已连接到 ${esploader.chipName}`)
+      addOutput(`MAC 地址：${formatMacAddr(esploader.macAddr())}`)
 
       const newEspStub = await esploader.runStub()
 
       setConnected(true)
       toast.update('connecting', {
-        render: 'Connected 🚀',
+        render: '已连接 🚀',
         type: toast.TYPE.SUCCESS,
         autoClose: 3000
       })
 
-      //console.log(newEspStub)
-
       newEspStub.port.addEventListener('disconnect', () => {
         setConnected(false)
         setEspStub(undefined)
-        toast.warning('Disconnected 💔', { position: 'top-center', autoClose: 3000, toastId: 'settings' })
+        toast.warning('已断开连接 💔', { position: 'top-center', autoClose: 3000, toastId: 'settings' })
         addOutput(`------------------------------------------------------------`)
       })
 
@@ -101,7 +99,7 @@ const App = () => {
       setUploads(await loadFiles(esploader.chipName))
       setChipName(esploader.chipName)
     } catch (err) {
-      const shortErrMsg = `${err}`.replace('Error: ','')
+      const shortErrMsg = `${err}`.replace('Error: ', '')
 
       toast.update('connecting', {
         render: shortErrMsg,
@@ -118,35 +116,35 @@ const App = () => {
     }
   }
 
-  // Erase firmware on ESP
+  // 擦除 ESP 闪存
   const erase = async () => {
     setConfirmErase(false)
     setFlashing(true)
-    toast(`Erasing flash memory. Please wait...`, { position: 'top-center', toastId: 'erase', autoClose: false })
+    toast(`正在擦除闪存，请稍候…`, { position: 'top-center', toastId: 'erase', autoClose: false })
 
     try {
       const stamp = Date.now()
 
-      addOutput(`Start erasing`)
+      addOutput(`开始擦除`)
       const interval = setInterval(() => {
-        addOutput(`Erasing flash memory. Please wait...`)
+        addOutput(`正在擦除闪存，请稍候…`)
       }, 3000)
 
       await espStub.eraseFlash()
 
       clearInterval(interval)
-      addOutput(`Finished. Took ${Date.now() - stamp}ms to erase.`)
-      toast.update('erase', { render: 'Finished erasing memory.', type: toast.TYPE.INFO, autoClose: 3000 })
+      addOutput(`完成。耗时 ${Date.now() - stamp} 毫秒。`)
+      toast.update('erase', { render: '闪存擦除完成。', type: toast.TYPE.INFO, autoClose: 3000 })
     } catch (e) {
-      addOutput(`ERROR!\n${e}`)
-      toast.update('erase', { render: `ERROR!\n${e}`, type: toast.TYPE.ERROR, autoClose: 3000 })
+      addOutput(`错误！\n${e}`)
+      toast.update('erase', { render: `错误！\n${e}`, type: toast.TYPE.ERROR, autoClose: 3000 })
       console.error(e)
     } finally {
       setFlashing(false)
     }
   }
 
-  // Flash Firmware
+  // 烧录固件
   const program = async () => {
     setConfirmProgram(false)
     setFlashing(true)
@@ -159,7 +157,7 @@ const App = () => {
       return new Promise((resolve, reject) => {
         reader.onerror = () => {
           reader.abort();
-          reject(new DOMException('Problem parsing input file.'));
+          reject(new DOMException('解析输入文件时出错。'));
         }
 
         reader.onload = () => {
@@ -173,7 +171,7 @@ const App = () => {
       if (!file.fileName || !file.obj) continue
       success = true
 
-      toast(`Uploading ${file.fileName.substring(0, 28)}...`, { position: 'top-center', progress: 0, toastId: 'upload' })
+      toast(`正在上传 ${file.fileName.substring(0, 28)}…`, { position: 'top-center', progress: 0, toastId: 'upload' })
 
       try {
         const contents = await toArrayBuffer(file.obj)
@@ -186,28 +184,28 @@ const App = () => {
 
             toast.update('upload', { progress: progress })
 
-            addOutput(`Flashing... ${percentage}%`)
+            addOutput(`烧录中… ${percentage}%`)
           },
           parseInt(file.offset, 16)
         )
 
         await sleep(100)
       } catch (e) {
-        addOutput(`ERROR!`)
+        addOutput(`错误！`)
         addOutput(`${e}`)
         console.error(e)
       }
     }
 
     if (success) {
-      addOutput(`Done!`)
-      addOutput(`To run the new firmware please reset your device.`)
+      addOutput(`完成！`)
+      addOutput(`请重启设备以运行新固件。`)
 
-      toast.success('Done! Reset ESP to run new firmware.', { position: 'top-center', toastId: 'uploaded', autoClose: 3000 })
+      toast.success('烧录完成！请重启 ESP 以运行新固件。', { position: 'top-center', toastId: 'uploaded', autoClose: 3000 })
     } else {
-      addOutput(`Please add a .bin file`)
+      addOutput(`请添加一个 .bin 固件文件`)
 
-      toast.info('Please add a .bin file', { position: 'top-center', toastId: 'uploaded', autoClose: 3000 })
+      toast.info('请添加一个 .bin 固件文件', { position: 'top-center', toastId: 'uploaded', autoClose: 3000 })
     }
 
     setFlashing(false)
@@ -219,7 +217,7 @@ const App = () => {
 
       <Grid container spacing={1} direction='column' justifyContent='space-around' alignItems='center' sx={{ minHeight: 'calc(100vh - 116px)' }}>
 
-        {/* Home Page */}
+        {/* 首页（未连接） */}
         {!connected && !connecting &&
           <Grid item>
             <Home
@@ -230,16 +228,16 @@ const App = () => {
           </Grid>
         }
 
-        {/* Home Page */}
+        {/* 连接中 */}
         {!connected && connecting &&
           <Grid item>
             <Typography variant='h3' component='h2' sx={{ color: '#aaa' }}>
-              Connecting...
+              正在连接…
             </Typography>
           </Grid>
         }
 
-        {/* FileUpload Page */}
+        {/* 文件上传页面（已连接） */}
         {connected &&
           <Grid item>
             <FileList
@@ -250,7 +248,7 @@ const App = () => {
           </Grid>
         }
 
-        {/* Erase & Program Buttons */}
+        {/* 擦除与烧录按钮 */}
         {connected &&
           <Grid item>
             <Buttons
@@ -261,7 +259,7 @@ const App = () => {
           </Grid>
         }
 
-        {/* Serial Output */}
+        {/* 串口输出 */}
         {supported() &&
           <Grid item>
             <Output received={output} />
@@ -269,7 +267,7 @@ const App = () => {
         }
       </Grid>
 
-      {/* Settings Window */}
+      {/* 设置窗口 */}
       <Settings
         open={settingsOpen}
         close={() => setSettingsOpen(false)}
@@ -278,26 +276,26 @@ const App = () => {
         connected={connected}
       />
 
-      {/* Confirm Erase Window */}
+      {/* 确认擦除窗口 */}
       <ConfirmWindow
         open={confirmErase}
-        text={'This will erase the memory of your ESP.'}
+        text={'此操作将擦除 ESP 设备的全部闪存内容。'}
         onOk={erase}
         onCancel={() => setConfirmErase(false)}
       />
 
-      {/* Confirm Flash/Program Window */}
+      {/* 确认烧录窗口 */}
       <ConfirmWindow
         open={confirmProgram}
-        text={'Flashing new firmware will override the current firmware.'}
+        text={'烧录新固件将覆盖当前固件。'}
         onOk={program}
         onCancel={() => setConfirmProgram(false)}
       />
 
-      {/* Toaster */}
+      {/* 提示框容器 */}
       <ToastContainer />
 
-      {/* Footer */}
+      {/* 页脚 */}
       <Footer sx={{ mt: 'auto' }} />
     </Box>
   )
