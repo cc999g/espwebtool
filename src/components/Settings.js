@@ -32,20 +32,20 @@ const Settings = (props) => {
         saveSettings({ baudRate: baudRate })
         props.setSettings({ baudRate: baudRate })
         props.close()
-        toast.success('Settings saved ✨', { position: 'top-center', autoClose: 3000, toastId: 'settings' })
+        toast.success('设置已保存 ✨', { position: 'top-center', autoClose: 3000, toastId: 'settings' })
     }
 
     return (
         <Dialog open={props.open} onClose={props.close}>
-            <DialogTitle>Settings</DialogTitle>
+            <DialogTitle>设置</DialogTitle>
 
             <DialogContent>
                 <DialogContentText>
-                    Serial Connection
+                    串口连接
                 </DialogContentText>
 
                 <FormControl variant='filled' fullWidth sx={{ mt: 1, minWidth: '10em' }}>
-                    <InputLabel>Baud Rate {props.connected && '(Requires Reconnect)'}</InputLabel>
+                    <InputLabel>波特率 {props.connected && '(需重新连接)'}</InputLabel>
                     <Select
                         value={baudRate}
                         onChange={(e) => setBaudRate(e.target.value)}
@@ -53,16 +53,16 @@ const Settings = (props) => {
                         disabled={props.connected}
                     >
                         {baudrates.map(baud =>
-                            <MenuItem value={baud} key={baud}>{baud} baud</MenuItem>
+                            <MenuItem value={baud} key={baud}>{baud} 波特</MenuItem>
                         )}
                     </Select>
                 </FormControl>
             </DialogContent>
 
             <DialogActions>
-                <Button onClick={reset} color='error'>Reset</Button>
-                <Button onClick={cancel} color='secondary'>Cancel</Button>
-                <Button onClick={save} color='primary'>Save</Button>
+                <Button onClick={reset} color='error'>重置</Button>
+                <Button onClick={cancel} color='secondary'>取消</Button>
+                <Button onClick={save} color='primary'>保存</Button>
             </DialogActions>
         </Dialog>
     )
