@@ -15,7 +15,7 @@ const Footer = (props) => {
                 <Typography
                 align='center'
                 display='block'>
-                由 <Link href='https://spacehuhn.com' target='_blank' underline='hover' color='inherit'>Ycccc</Link> 倾情打造 ❤️
+                由 <Link href='https://github.com/cc999g' target='_blank' underline='hover' color='inherit'>Ycccc</Link> 倾情打造 ❤️
                 </Typography>
             </Box>
 
