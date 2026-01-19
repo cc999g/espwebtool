@@ -27,7 +27,7 @@ const Home = (props) => {
                     <Box align='center'>
                         <Box>
                             <Button variant='contained' color='success' size='large' onClick={props.connect} sx={{ m: 1 }}>
-                                Connect
+                                连接
                             </Button>
                         </Box>
 
@@ -38,37 +38,38 @@ const Home = (props) => {
                         </Box>
 
                         <Alert severity='info' align='left'>
-                            1. Click on Connect<br />
-                            2. Plug in your ESP & select the port<br />
-                            3. Add your .bin & set the address<br />
-                            4. Click Program to flash it 😊<br />
+                            1. 点击 连接 按钮<br />
+                            2. 插入你的 ESP 设备并选择对应的端口<br />
+                            3. 添加 .bin 固件文件并设置烧录地址<br />
+                            4. 点击 烧录 按钮开始烧录 😊<br />
                         </Alert>
                     </Box>
 
                     :
 
                     <Alert severity='warning'>
-                        <AlertTitle>Your browser doesn&apos;t support Web Serial 😭</AlertTitle>
-                        Try using&nbsp;
+                        <AlertTitle>你的浏览器不支持网页串口功能 😭</AlertTitle>
+                        请尝试使用&nbsp;
                         <a href='https://www.google.com/chrome/' target='blank'>
-                            <ChromeIcon fontSize='inherit' /> <b>Chrome</b>
+                            <ChromeIcon fontSize='inherit' /> <b>谷歌浏览器</b>
                         </a>
-                        ,&nbsp;
+                        、&nbsp;
                         <a href='https://www.microsoft.com/en-us/edge' target='blank'>
-                            <EdgeIcon fontSize='inherit' /> <b>Edge</b>
+                            <EdgeIcon fontSize='inherit' /> <b>微软浏览器</b>
                         </a>
-                        , or&nbsp;
+                        或&nbsp;
                         <a href='https://www.opera.com/' target='blank'>
-                            <OperaIcon fontSize='inherit' /> <b>Opera</b>
+                            <OperaIcon fontSize='inherit' /> <b>欧朋浏览器</b>
                         </a>
                         <br />
-                        (IOS & Android browsers are not supported)
+                        （苹果iOS 与 安卓系统的浏览器暂不支持）
                         <br />
                         <br />
-                        Learn more about&nbsp;
+                        了解更多关于&nbsp;
                         <a href='https://developer.mozilla.org/en-US/docs/Web/API/Serial#browser_compatibility' target='blank'>
-                            browser compatibility
+                            浏览器兼容性
                         </a>
+                        的内容
                     </Alert>
                 }
             </Grid>
