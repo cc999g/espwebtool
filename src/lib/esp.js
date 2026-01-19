@@ -3,9 +3,10 @@ import localforage from "localforage"
 const connectESP = async t => {
     const esploaderMod = await window.esptoolPackage;
     const e = await navigator.serial.requestPort();
-    return t.log("Connecting..."), await e.open({
+    // 日志文本改为中文
+    return t.log("正在连接..."), await e.open({
         baudRate: t.baudRate
-    }), t.log("Connected successfully."), new esploaderMod.ESPLoader(e, t);
+    }), t.log("连接成功。"), new esploaderMod.ESPLoader(e, t);
 };
 
 const formatMacAddr = (macAddr) => {
