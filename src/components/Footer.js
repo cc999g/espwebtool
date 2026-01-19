@@ -15,11 +15,11 @@ const Footer = (props) => {
                 <Typography
                 align='center'
                 display='block'>
-                Made with ❤️ by <Link href='https://spacehuhn.com' target='_blank' underline='hover' color='inherit'>Spacehuhn</Link>
+                由 <Link href='https://spacehuhn.com' target='_blank' underline='hover' color='inherit'>Spacehuhn</Link> 倾情打造 ❤️
                 </Typography>
             </Box>
 
-            { /* Version */}
+            { /* 版本号 */}
             <Typography
                 variant='caption'
                 align='center'
@@ -35,4 +35,4 @@ Footer.propTypes = {
     sx: PropTypes.object,
 }
 
-export default Footer      
+export default Footer
