@@ -82,7 +82,7 @@ const FileList = (props) => {
         <Box textAlign='center' className={styles.box}>
             {props.uploads.map((file, i) =>
                 <Grid container spacing={0} className={styles.fileItem} key={i}>
-                    {/* Offset */}
+                    {/* 偏移量 */}
                     <Grid item xs={2} className={styles.fileOffset}>
                         <TextField
                             label='0x'
@@ -94,7 +94,7 @@ const FileList = (props) => {
                         />
                     </Grid>
 
-                    {/* File Name */}
+                    {/* 文件名 */}
                     <Grid item xs={9}>
                         {file.fileName ?
                             <Typography className={styles.fileName}>
@@ -102,7 +102,7 @@ const FileList = (props) => {
                             </Typography>
                             :
                             <Button variant='outlined' color='primary' component='label' endIcon={<DriveFolderUploadIcon />}>
-                                Select
+                                选择文件
                                 <input
                                     type='file'
                                     hidden
@@ -112,7 +112,7 @@ const FileList = (props) => {
                         }
                     </Grid>
 
-                    {/* Delete */}
+                    {/* 删除 */}
                     <Grid item xs={1}>
                         <IconButton
                             color='error'
@@ -128,16 +128,16 @@ const FileList = (props) => {
                 </Grid>
             )}
 
-            {/* Add File */}
+            {/* 添加文件 */}
             <Grid container spacing={.5}>
                 <Grid item xs={6} sx={{ textAlign: 'left' }}>
                     <Button color='error' component='label' size='large' onClick={reset} endIcon={<RestartAltIcon />}>
-                        Reset
+                        重置
                     </Button>
                 </Grid>
                 <Grid item xs={6} sx={{ textAlign: 'right' }}>
                     <Button color='primary' component='label' size='large' onClick={addFile} endIcon={<AddBoxIcon />}>
-                        Add
+                        添加
                     </Button>
                 </Grid>
             </Grid>
