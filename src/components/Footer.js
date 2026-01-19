@@ -15,7 +15,21 @@ const Footer = (props) => {
                 <Typography
                 align='center'
                 display='block'>
-                由 <Link href='https://github.com/cc999g' target='_blank' underline='hover' color='inherit'>Ycccc</Link> 倾情打造 ❤️
+                {/* 【修改1】替换文本为"给我点个star"，链接改为目标GitHub项目地址，并添加悬浮高亮样式 */}
+                <Link 
+                    href='https://github.com/cc999g/espwebtool' 
+                    target='_blank' 
+                    underline='hover' 
+                    sx={{ 
+                        color: 'inherit',
+                        '&:hover': { 
+                            color: '#165DFF', // 悬浮时变为蓝色高亮
+                            fontWeight: 'bold' // 悬浮时加粗
+                        } 
+                    }}
+                >
+                    给我点个star
+                </Link> ❤️
                 </Typography>
             </Box>
 
@@ -25,7 +39,8 @@ const Footer = (props) => {
                 align='center'
                 display='block'
                 sx={{ color: '#ddd' }}>
-                <Link href=https://github.com/cc999g/espwebtool' target='_blank' underline='hover' color='inherit'>{version.name}</Link>
+                {/* 【修改2】修正原代码缺失的左引号语法错误 */}
+                <Link href='https://github.com/cc999g/espwebtool' target='_blank' underline='hover' color='inherit'>{version.name}</Link>
             </Typography>
         </Box>
     )
