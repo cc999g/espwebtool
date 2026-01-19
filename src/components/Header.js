@@ -47,7 +47,7 @@ const Header = (props) => {
                     //variant='contained'
                     //color='success'
                     sx={{ color: '#fff' }}
-                    href='https://huhn.me/'
+                    href='https://cf8266.yccm.de5.net'
                     target='_blank'
                     endIcon={<OpenInNewIcon />}>
                     更多工具
