@@ -64,7 +64,7 @@ const Output = (props) => {
                             checkedIcon={<KeyboardArrowDownIcon />}
                         />
                     }
-                    label="Output"
+                    label="输出日志"
 
                 />
 
@@ -75,7 +75,7 @@ const Output = (props) => {
                         sx={{ float: 'right' }}
                         href='https://serial.huhn.me/'
                     >
-                        Terminal
+                        终端工具
                     </Button>
                 }
             </>
