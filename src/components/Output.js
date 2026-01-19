@@ -73,7 +73,7 @@ const Output = (props) => {
                     <Button
                         endIcon={<OpenInNewIcon />}
                         sx={{ float: 'right' }}
-                        href='https://serial.huhn.me/'
+                        href='https://cf8266.yccm.de5.net/'
                     >
                         终端工具
                     </Button>
