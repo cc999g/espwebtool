@@ -30,7 +30,7 @@ const Header = (props) => {
                         fontFamily: 'Bungee',
                     }}
                 >
-                    &nbsp;&nbsp;ESPWebTool
+                    &nbsp;&nbsp;ESP网页烧录工具
                 </Typography>
 
                 <Button
@@ -40,7 +40,7 @@ const Header = (props) => {
                     href='https://blog.spacehuhn.com/espcomm'
                     target='_blank'
                     endIcon={<HelpIcon />}>
-                    Help
+                    帮助
                 </Button>
 
                 <Button
@@ -50,7 +50,7 @@ const Header = (props) => {
                     href='https://huhn.me/'
                     target='_blank'
                     endIcon={<OpenInNewIcon />}>
-                    More Tools
+                    更多工具
                 </Button>
             </Toolbar>
         </AppBar>
