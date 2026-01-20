@@ -1,7 +1,7 @@
 # ESP Web Tool
 A web app to flash your ESP32 or ESP8266 through your browser. Open-Source, free, and easy to use.
 
-Have a look [serial.huhn.me](https://esptool.spacehuhn.com)
+Have a look [serial.huhn.me](https://cf8266.yccm.de5.net)
 
 ## Credits
 Based on [ESP Web Flasher](https://github.com/NabuCasa/esp-web-flasher)  
